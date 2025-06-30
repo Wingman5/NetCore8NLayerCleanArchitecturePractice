@@ -8,5 +8,10 @@ namespace App.Repositories.Products
         {
             return Context.Products.OrderByDescending(p => p.Price).Take(count).ToListAsync();
         }
+
+        public async Task<List<Product>> GetAllAsync()
+        {
+            return await Context.Products.ToListAsync();
+        }
     }
 }

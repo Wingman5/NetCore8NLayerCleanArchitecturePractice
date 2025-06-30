@@ -1,12 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace App.Services.Models;
+public record UpdateProductRequest(int Id, string Name, decimal Price, int Stock);
 
-namespace App.Services.Models
-{
-    internal class UpdateProductRequest
-    {
-    }
-}

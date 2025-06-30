@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Text.Json.Serialization;
 
 namespace App.Services
 {
@@ -7,10 +8,12 @@ namespace App.Services
         public T? Data { get; set; }
         public string? Message { get; set; }
 
+        [JsonIgnore] public string? UrlAsCreated { get; set; }
+
+        [JsonIgnore]
         public bool IsSuccess
         {
             get => Errors == null || !Errors.Any();
-            set => throw new NotImplementedException();
         }
 
         public List<string>? Errors { get; set; }
@@ -23,7 +26,16 @@ namespace App.Services
             {
                 Data = data,
                 Status = status,
-                IsSuccess = true
+            };
+        }
+
+        public static ServiceResult<T> SuccessAsCreated(T data, string urlAsCreated)
+        {
+            return new ServiceResult<T>()
+            {
+                Data = data,
+                Status = HttpStatusCode.Created,
+                UrlAsCreated = urlAsCreated
             };
         }
 
@@ -33,7 +45,6 @@ namespace App.Services
             {
                 Message = message,
                 Status = status,
-                IsSuccess = false,
                 Errors = errors ?? []
             };
         }
@@ -42,17 +53,23 @@ namespace App.Services
         {
             return new ServiceResult()
             {
-                IsSuccess = false,
                 Errors = [error]  
             };
         }
 
-        public static ServiceResult NotFound(string message = "Not Found")
+        public static ServiceResult<T> NotFound(string message = "Not Found")
         {
-            return new ServiceResult()
+            return new ServiceResult<T>()
             {
                 Message = message,
-                IsSuccess = false
+            };
+        }
+
+        public static ServiceResult<T> NoContent()
+        {
+            return new ServiceResult<T>()
+            {
+                Status = HttpStatusCode.NoContent
             };
         }
     }
@@ -64,7 +81,6 @@ namespace App.Services
         public bool IsSuccess
         {
             get => Errors == null || !Errors.Any();
-            set => throw new NotImplementedException();
         }
 
         public List<string>? Errors { get; set; }
@@ -75,18 +91,17 @@ namespace App.Services
         {
             return new ServiceResult()
             {
-                Status = status,
-                IsSuccess = true
+                Status = status
             };
         }
 
-        public static ServiceResult Failure(string message, List<string>? errors, HttpStatusCode status = HttpStatusCode.BadRequest)
+        public static ServiceResult Failure(string message, List<string>? errors,
+            HttpStatusCode status = HttpStatusCode.BadRequest)
         {
             return new ServiceResult()
             {
                 Message = message,
                 Status = status,
-                IsSuccess = false,
                 Errors = errors ?? []
             };
         }
@@ -95,7 +110,6 @@ namespace App.Services
         {
             return new ServiceResult()
             {
-                IsSuccess = false,
                 Errors = [error]
             };
         }
@@ -105,8 +119,12 @@ namespace App.Services
             return new ServiceResult()
             {
                 Message = message,
-                IsSuccess = false
             };
+        }
+
+        public bool NoContent()
+        {
+            return Status == HttpStatusCode.NoContent;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace App.Repositories.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20250615164708_initial")]
-    partial class initial
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
