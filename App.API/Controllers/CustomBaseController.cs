@@ -29,7 +29,7 @@ namespace App.API.Controllers
 
             if (serviceResult.Status == HttpStatusCode.Created)
             {
-                return Created(serviceResult.UrlAsCreated, serviceResult.Data);
+                return Created(serviceResult.UrlAsCreated, serviceResult);
             }
 
             return StatusCode((int)serviceResult.Status, serviceResult.Errors ?? [serviceResult.Message ?? "An error occurred"]);
@@ -41,7 +41,7 @@ namespace App.API.Controllers
         {
             if (serviceResult.IsSuccess)
             {
-                return Ok(serviceResult.Data);
+                return Ok(serviceResult);
             }
 
             if (serviceResult.Status == HttpStatusCode.NotFound)

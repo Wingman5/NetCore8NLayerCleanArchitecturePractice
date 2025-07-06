@@ -1,4 +1,7 @@
-﻿using App.Services.Products;
+﻿using System.Reflection;
+using App.Services.Products;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,7 +12,8 @@ namespace App.Services.Extensions
         public static void AddServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IProductService, ProductService>();
-            // Add other services here as needed
+            services.AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

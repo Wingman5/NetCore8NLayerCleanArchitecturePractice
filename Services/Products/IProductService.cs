@@ -10,6 +10,7 @@ namespace App.Services.Products
         Task<ServiceResult<ProductDto?>> GetByIdAsync(int id);
         Task<ServiceResult<CreateProductResponse>> CreateAsync(CreateProductRequest productDto);
         Task<ServiceResult> UpdateAsync(int id, UpdateProductRequest productDto);
+        Task<ServiceResult> UpdateStockAsync(int id, int stock);
         Task<ServiceResult> DeleteAsync(int id);
     }
 }

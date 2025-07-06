@@ -23,6 +23,9 @@ namespace App.API.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody] UpdateProductRequest productDto) => HandleServiceResult(await productService.UpdateAsync(id, productDto));
 
+        [HttpPatch("stock")]
+        public async Task<IActionResult> UpdateStockAsync(int id, [FromBody] int stock) => HandleServiceResult(await productService.UpdateStockAsync(id, stock));
+
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id) => HandleServiceResult(await productService.DeleteAsync(id));
 
