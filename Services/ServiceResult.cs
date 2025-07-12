@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json.Serialization;
+using App.Services.Models;
 
 namespace App.Services
 {
@@ -49,9 +50,9 @@ namespace App.Services
             };
         }
 
-        public static ServiceResult Failure(string error, HttpStatusCode status = HttpStatusCode.BadRequest)
+        public static ServiceResult<T> Failure(string error, HttpStatusCode status = HttpStatusCode.BadRequest)
         {
-            return new ServiceResult()
+            return new ServiceResult<T>()
             {
                 Errors = [error]  
             };

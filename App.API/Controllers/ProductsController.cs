@@ -1,4 +1,4 @@
-﻿using App.Services.Models;
+﻿using App.Services.Models.Product;
 using App.Services.Products;
 using Microsoft.AspNetCore.Mvc;
 

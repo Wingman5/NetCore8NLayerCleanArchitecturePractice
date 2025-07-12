@@ -1,4 +1,4 @@
-﻿namespace App.Services.Models
+﻿namespace App.Services.Models.Product
 {
     // The record automatically provides the properties with init accessors
     // so we don't need to define them explicitly here.

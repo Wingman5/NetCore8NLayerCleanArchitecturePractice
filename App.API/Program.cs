@@ -28,6 +28,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseExceptionHandler(e=>{});
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

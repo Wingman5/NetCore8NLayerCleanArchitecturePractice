@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using App.Repositories;
 using App.Repositories.Products;
-using App.Services.Models;
+using App.Services.Models.Product;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Services.Products
@@ -50,6 +50,14 @@ namespace App.Services.Products
 
         public async Task<ServiceResult<CreateProductResponse>> CreateAsync(CreateProductRequest productDto)
         {
+            // Business validation: Check if a product with the same name already exists
+            var anyProduct = await productRepository.Where(p => p.Name == productDto.Name).AnyAsync();
+
+            if (anyProduct)
+            {
+                return ServiceResult<CreateProductResponse>.Failure("Product with the same name already exists.", HttpStatusCode.Conflict);
+            }
+
             var product = new Product
             {
                 Name = productDto.Name,

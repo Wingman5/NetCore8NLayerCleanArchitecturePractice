@@ -1,4 +1,4 @@
-﻿using App.Services.Models;
+﻿using App.Services.Models.Product;
 
 namespace App.Services.Products
 {
